@@ -34,6 +34,7 @@
             jdk
             maven
             ncurses
+            osv-scanner
             patchelf
             semgrep
             spring-boot-cli

@@ -2,8 +2,8 @@ name: Daily and PR Security Pipeline
 
 on:
   schedule:
-    - cron: '0 0 * * *' 
-  workflow_dispatch:
+    - cron: '0 0 * * *' # Runs daily at 00:00 UTC
+  workflow_dispatch:     # Manual trigger
 
 jobs:
   DependenciesAnalysis:
@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}  
 
       - name: Run OSV Scanner
         uses: google/osv-scanner-action/osv-scanner-action@v2.0.2

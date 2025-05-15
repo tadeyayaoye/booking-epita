@@ -2,51 +2,56 @@ name: Daily and PR Security Pipeline
 
 on:
   schedule:
-    # Runs every day at midnight UTC
     - cron: '0 0 * * *'
-  workflow_dispatch: # Manual trigger for testing
+  workflow_dispatch:
   pull_request:
-    # Triggers security checks on PRs targeting main
     types: [opened, synchronize, reopened]
     branches:
       - main
+
+permissions:
+  # Required for SARIF upload
+  security-events: write
+  contents: read
 
 jobs:
   osv_scan:
     name: Run OSV Scanner
     runs-on: ubuntu-latest
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request'
+    if: ${{ always() }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run OSV Scanner
-        uses: google/osv-scanner-action@v1
+        uses: google/osv-scanner-action@v2
         with:
           output: osv-report.sarif
 
       - name: Upload OSV SARIF report to Security Dashboard
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: osv-report.sarif
 
   semgrep_scan:
     name: Run Semgrep Analysis
     runs-on: ubuntu-latest
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request'
     container:
       image: returntocorp/semgrep:latest
+    if: ${{ always() }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run Semgrep for Java ruleset
-        # For pull_request, Semgrep SARIF upload will surface only new findings in GitHub UI
         run: |
           semgrep --config p/java --sarif --output semgrep-report.sarif
 
       - name: Upload Semgrep SARIF report to Security Dashboard
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: semgrep-report.sarif
-

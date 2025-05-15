@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -40,7 +40,7 @@ jobs:
       image: returntocorp/semgrep:latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 

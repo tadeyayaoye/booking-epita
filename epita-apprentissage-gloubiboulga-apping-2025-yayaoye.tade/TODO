@@ -1,0 +1,7 @@
+TODO - Gloubiboulga
+
+- Améliorer le support de formats additionnels : %x, %u, %p, etc.
+- Ajouter la gestion des flags (%05d, %-10s, etc.)
+- Gérer la sortie vers un buffer (vsprintf)
+- Ajouter des tests unitaires dans un fichier séparé
+- Factoriser le code dans des modules internes si besoin

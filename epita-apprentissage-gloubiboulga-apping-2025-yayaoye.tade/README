@@ -1,0 +1,28 @@
+# Gloubiboulga
+
+## Description
+
+Ce projet a été réalisé dans le cadre du rattrapage SYS1 à l'EPITA (juillet 2025).
+
+L’objectif du projet est de créer une bibliothèque dynamique (`libgloubiboulga.so`) contenant une seule fonction exportée nommée `gloubiboulga`, qui se comporte comme `printf`.
+
+> La fonction ne traite pas de globbing, malgré le nom du projet.
+
+Le projet est codé en C, compilé avec des options strictes, et respecte les contraintes imposées dans le sujet.
+
+## Arborescence
+
+mkdir -p epita-apprentissage-gloubiboulga-apping-2025-$LOGIN/src && \
+touch epita-apprentissage-gloubiboulga-apping-2025-$LOGIN/README && \
+touch epita-apprentissage-gloubiboulga-apping-2025-$LOGIN/TODO && \
+touch epita-apprentissage-gloubiboulga-apping-2025-$LOGIN/Makefile && \
+touch epita-apprentissage-gloubiboulga-apping-2025-$LOGIN/src/gloubiboulga.c && \
+touch epita-apprentissage-gloubiboulga-apping-2025-$LOGIN/src/gloubiboulga.h
+
+
+## Compilation
+
+Pour compiler le projet, utilisez simplement :
+
+```bash
+make
